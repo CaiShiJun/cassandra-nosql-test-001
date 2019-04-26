@@ -8,7 +8,7 @@ public class RedissonTest {
     private static int PORT = 8080;
 
     private static int FOR_TIMES = 1;
-    private static int SLEEP_TIME = 5000;
+    private static int SLEEP_TIME = 10000;
 
     public static String getUrl(String uri) {
         return "http://" + HOST + ":" + PORT + uri;
@@ -63,8 +63,61 @@ public class RedissonTest {
     }
 
     @Test
+    public void queryBuilder() throws Exception {
+        for (int i = 0; i < FOR_TIMES; i++) {
+            HttpClientUtils.sendGetRequest(getUrl("/queryBuilder"));
+            Thread.sleep(SLEEP_TIME);
+        }
+    }
+
+    @Test
+    public void bindStatement() throws Exception {
+        for (int i = 0; i < FOR_TIMES; i++) {
+            HttpClientUtils.sendGetRequest(getUrl("/bindStatement"));
+            Thread.sleep(SLEEP_TIME);
+        }
+    }
+
+    @Test
+    public void prepareStatement() throws Exception {
+        for (int i = 0; i < FOR_TIMES; i++) {
+            HttpClientUtils.sendGetRequest(getUrl("/prepareStatement"));
+            Thread.sleep(SLEEP_TIME);
+        }
+    }
+
+    @Test
+    public void bindStatementQueryBuilder() throws Exception {
+        for (int i = 0; i < FOR_TIMES; i++) {
+            HttpClientUtils.sendGetRequest(getUrl("/bindStatementQueryBuilder"));
+            Thread.sleep(SLEEP_TIME);
+        }
+    }
+
+    @Test
+    public void batchStatement() throws Exception {
+        for (int i = 0; i < FOR_TIMES; i++) {
+            HttpClientUtils.sendGetRequest(getUrl("/batchStatement"));
+            Thread.sleep(SLEEP_TIME);
+        }
+    }
+
+    @Test
     public void runAll() throws Exception {
         while (true) {
+            // createKeyspace();
+            // createTable();
+            insert();
+            query();
+            update();
+            delete();
+            queryBuilder();
+            bindStatement();
+            prepareStatement();
+            bindStatementQueryBuilder();
+            batchStatement();
         }
     }
 }
+
+
